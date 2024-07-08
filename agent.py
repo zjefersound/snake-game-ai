@@ -93,7 +93,7 @@ class Agent:
       state0 = torch.tensor(state, dtype=torch.float)
       prediction = self.model(state0)
       move = torch.argmax(prediction).item()
-      final_move = 1
+      final_move[move] = 1
 
     return final_move
   
@@ -131,13 +131,13 @@ def train():
         record = score
         agent.model.save()
         
-        print("Game", agent.n_games, "Score", score, "Record:", record)
-        
-        plot_scores.append(score)
-        total_score += score
-        mean_score = total_score / agent.n_games
-        plot_mean_scores.append(mean_score)
-        plot(plot_scores, plot_mean_scores)
+      print("Game", agent.n_games, "Score", score, "Record:", record)
+      
+      plot_scores.append(score)
+      total_score += score
+      mean_score = total_score / agent.n_games
+      plot_mean_scores.append(mean_score)
+      plot(plot_scores, plot_mean_scores)
 
 if __name__ == '__main__':
   train()
