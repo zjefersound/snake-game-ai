@@ -135,19 +135,24 @@ class SnakeGame:
         
         if np.array_equal(action,[1,0,0]):
             new_dir = clock_wise[idx]
-        if np.array_equal(action,[0,1,0]):
+        elif np.array_equal(action,[0,1,0]):
             next_idx = (idx + 1) % 4
-            new_dir = clock_wise[idx]
+            new_dir = clock_wise[next_idx]
+        else:
+            next_idx = (idx - 1) % 4
+            new_dir = clock_wise[next_idx]
             
+        self.direction = new_dir
+        
         x = self.head.x
         y = self.head.y
-        if direction == Direction.RIGHT:
+        if self.direction == Direction.RIGHT:
             x += BLOCK_SIZE
-        elif direction == Direction.LEFT:
+        elif self.direction == Direction.LEFT:
             x -= BLOCK_SIZE
-        elif direction == Direction.DOWN:
+        elif self.direction == Direction.DOWN:
             y += BLOCK_SIZE
-        elif direction == Direction.UP:
+        elif self.direction == Direction.UP:
             y -= BLOCK_SIZE
             
         self.head = Point(x, y)
