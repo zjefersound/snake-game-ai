@@ -3,9 +3,14 @@
 This is a Deep Learning project made following the [freeCodeCamp.org tutorial on YouTube](https://www.youtube.com/watch?v=L8ypSXwyBds) 
 
 ## What was made?
-The project uses concepts from Machine Learning
+The project combines concepts from [Q Learning](https://towardsdatascience.com/reinforcement-learning-explained-visually-part-4-q-learning-step-by-step-b65efb731d3e) and [Deep Q Networks](https://towardsdatascience.com/reinforcement-learning-explained-visually-part-5-deep-q-networks-step-by-step-5a5317197f4b#:~:text=The%20Q%20Network%20is%20a,regular%20CNN%20or%20RNN%20architecture.).
+
+- ```Game```: is the snake game itself with modifications to return the desired rewards and verify collisions from the ```agent```
+- ```Agent```: is the "virtual player", that runs the game and trains the ```model``` 
+- ```Model```: is the part of the application that saves the learned values into a Q table and predicts the next moves based on previous rewards.
 
 ## What is missing?
+Improvements in reward values and how to dodge itself without getting locked.
 
 ## Setup
 
@@ -60,3 +65,5 @@ python agent.py
 
 
 ### Preview: 
+![image](https://github.com/zjefersound/snake-game-ai/assets/62676057/8caeb753-784f-432a-812c-322363148e22)
+
