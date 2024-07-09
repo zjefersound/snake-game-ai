@@ -1,5 +1,6 @@
 import torch
 import random
+import os
 import numpy as np
 from collections import deque
 from game import SnakeGameAI, Direction, Point
@@ -18,6 +19,12 @@ class Agent:
     self.memory = deque(maxlen=MAX_MEMORY) # popleft()
     self.model = Linear_QNet(11, 256, 3) # TODO
     self.trainer = QTrainer(self.model, lr=LR, gamma=self.gamma) # TODO
+    self.has_previous_model = False
+
+    if os.path.exists('model/model.pth'):
+      self.model.load_state_dict(torch.load('model/model.pth'))
+      self.model.eval()
+      self.has_previous_model = True
 
   def get_state(self, game):
     head = game.snake[0]
@@ -83,7 +90,11 @@ class Agent:
   
   def get_action(self, state):
     # random moves: tradeoff exploration / exploitation
-    self.epsilon = 80 - self.n_games
+    if self.has_previous_model:
+      self.epsilon = 1 - self.n_games
+    else:
+      self.epsilon = 80 - self.n_games
+    
     final_move = [0,0,0]
     
     if random.randint(0, 200) < self.epsilon:
